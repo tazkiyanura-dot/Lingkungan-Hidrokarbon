@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidrokarbon di Lingkungan Kita dan Dampaknya terhadap Bumi kita</title>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome untuk Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Fira+Code:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0b132b;
+            --card-bg: #1c2541;
+            --card-inner: #0f172a;
+            --primary: #10b981;
+            --primary-glow: rgba(16, 185, 129, 0.3);
+            --secondary: #3b82f6;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* HEADER SECTION */
+        header {
+            background: linear-gradient(135deg, #1c2541 0%, #0b132b 100%);
+            padding: 50px 20px 40px;
+            text-align: center;
+            border-bottom: 3px solid var(--primary);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--primary);
+            color: #34d399;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            font-family: 'Fira Code', monospace;
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #34d399, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+
+        header p {
+            color: var(--text-sub);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .role-tags {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .role-tag {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* SECTION TITLES */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            color: #f1f5f9;
+        }
+
+        .section-header i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        /* GRID SYSTEM */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        /* CARDS */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 30px var(--primary-glow);
+        }
+
+        /* IMAGE CARDS */
+        .image-card {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-card-content {
+            padding: 20px;
+        }
+
+        /* KALKULATOR REAKSI */
+        .calc-box {
+            background: linear-gradient(145deg, #0f172a, #1c2541);
+            border: 2px solid var(--primary);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 0 25px var(--primary-glow);
+        }
+
+        .calc-inputs {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            font-weight: 600;
+        }
+
+        .input-group input {
+            background: #090d16;
+            border: 1px solid var(--border-color);
+            color: var(--primary);
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-family: 'Fira Code', monospace;
+            font-weight: bold;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .calc-btn {
+            background: var(--primary);
+            color: #0b132b;
+            border: none;
+            padding: 12px 25px;
+            font-weight: 800;
+            font-size: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            align-self: flex-end;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .calc-btn:hover {
+            background: #34d399;
+            transform: scale(1.02);
+        }
+
+        .reaction-display {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.3rem;
+            background: #090d16;
+            padding: 20px;
+            border-radius: 12px;
+            color: var(--warning);
+            text-align: center;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .chem-formula {
+            font-family: 'Fira Code', monospace;
+            color: var(--warning);
+            font-weight: 600;
+        }
+
+        /* DATA CHART & DASHBOARD */
+        .chart-container {
+            position: relative;
+            height: 320px;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: var(--card-inner);
+            padding: 15px 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .stat-card.danger {
+            border-left-color: var(--danger);
+        }
+
+        .stat-card.warning {
+            border-left-color: var(--warning);
+        }
+
+        .stat-number {
+            font-size: 1.6rem;
+            font-weight: 800;
+            font-family: 'Fira Code', monospace;
+            margin-top: 5px;
+        }
+
+        /* NEWS LINKS */
+        .news-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 15px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .news-link:hover {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
+
+        /* EDUKASI SMA & GURU BADGES */
+        .edu-badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .badge-sma { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+        .badge-guru { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+
+        footer {
+            text-align: center;
+            margin-top: 70px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-sub);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-badge">
+            <i class="fa-solid fa-flask-vial"></i> CₓHᵧ + O₂ → CO₂ + H₂O
+        </div>
+        <h1>Hidrokarbon di Lingkungan Kita</h1>
+        <p>Eksplorasi Kimia Lingkungan, Kebakaran Hutan di Indonesia, & Dampaknya terhadap Bumi</p>
+        <div class="role-tags">
+            <span class="role-tag"><i class="fa-solid fa-graduation-cap"></i> Modul Pembelajaran SMA</span>
+            <span class="role-tag"><i class="fa-solid fa-chalkboard-user"></i> Panduan Diskusi Guru</span>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- SECTION 1: FOTO ASLI & FAKTA KARHUTLA INDONESIA -->
+        <div class="section-header">
+            <i class="fa-solid fa-fire-flame-curated"></i>
+            <h2>Realita Kebakaran Hutan (Karhutla) di Indonesia</h2>
+        </div>
+
+        <div class="grid">
+            <div class="card image-card">
+                <img src="https://images.unsplash.com/photo-1599598425947-020645242eef?q=80&w=800&auto=format&fit=crop" alt="Kebakaran Hutan Indonesia">
+                <div class="image-card-content">
+                    <span class="edu-badge badge-sma">Kasus Nyata: Lahan Gambut</span>
+                    <h3>Kebakaran Hutan & Gambut Sumatra - Kalimantan</h3>
+                    <p>Kebakaran hutan di Indonesia sebagian besar terjadi di tanah gambut kaya karbon. Pembakaran tak sempurna melepas asap hidrokarbon tak jenuh dan partikulat beracun.</p>
+                    <a href="https://lestari.kompas.com/read/2024/10/21/174027586/emisi-co2-global-dari-kebakaran-hutan-meningkat-60-persen-sejak-2001" target="_blank" class="news-link">
+                        Berita Emisi Karhutla Kompas <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card image-card">
+                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=800&auto=format&fit=crop" alt="Petugas Manggala Agni Memadamkan Api">
+                <div class="image-card-content">
+                    <span class="edu-badge badge-guru">Bahan Ajar: Kebijakan</span>
+                    <h3>Perjuangan Pemadaman & Krisis Asap Pekat</h3>
+                    <p>Manggala Agni dan petugas gabungan berjibaku memadamkan api bawah permukaan (*subsurface fire*) pada lahan gambut yang sangat sulit dipadamkan.</p>
+                    <a href="https://www.liputan6.com/tag/kebakaran-hutan" target="_blank" class="news-link">
+                        Pantauan Titik Panas Liputan6 <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: KALKULATOR INTERAKTIF PEMBAKARAN HIDROKARBON -->
+        <div class="section-header">
+            <i class="fa-solid fa-calculator"></i>
+            <h2>Kalkulator Reaksi Pembakaran Hidrokarbon (CₙHₘ)</h2>
+        </div>
+
+        <div class="calc-box">
+            <span class="edu-badge badge-sma">Praktikum Digital SMA Kelas XI</span>
+            <p style="margin-top:5px; color: var(--text-sub);">Setarakan persamaan reaksi pembakaran sempurna hidrokarbon secara otomatis:</p>
+            
+            <div class="calc-inputs">
+                <div class="input-group">
+                    <label for="carbon">Jumlah Atom C (n):</label>
+                    <input type="number" id="carbon" min="1" value="3">
+                </div>
+                <div class="input-group">
+                    <label for="hydrogen">Jumlah Atom H (m):</label>
+                    <input type="number" id="hydrogen" min="1" value="8">
+                </div>
+                <button class="calc-btn" onclick="calculateStoichiometry()">
+                    <i class="fa-solid fa-bolt"></i> Setarakan Reaksi
+                </button>
+            </div>
+
+            <div class="reaction-display" id="reactionResult">
+                C₃H₈ + 5O₂ → 3CO₂ + 4H₂O
+            </div>
+            <p id="stoichNotes" style="color: var(--text-sub); font-size: 0.95rem; margin-top: 12px;"></p>
+        </div>
+
+        <!-- SECTION 3: DASHBOARD DATA EMISI KARHUTLA INDONESIA -->
+        <div class="section-header">
+            <i class="fa-solid fa-chart-line"></i>
+            <h2>Data Interaktif Emisi Karbon Karhutla Indonesia</h2>
+        </div>
+
+        <div class="card">
+            <div class="stat-grid">
+                <div class="stat-card danger">
+                    <span style="font-size:0.85rem; color: var(--text-sub);">Puncak Emisi 2015</span>
+                    <div class="stat-number" style="color: var(--danger);">1.62 Gt</div>
+                    <span style="font-size:0.75rem; color: var(--text-sub);">Setara emisi tahunan Brazil</span>
+                </div>
+                <div class="stat-card warning">
+                    <span style="font-size:0.85rem; color: var(--text-sub);">Rata-rata Emisi Gambut</span>
+                    <div class="stat-number" style="color: var(--warning);">78%</div>
+                    <span style="font-size:0.75rem; color: var(--text-sub);">Berasal dari pembakaran gambut</span>
+                </div>
+                <div class="stat-card">
+                    <span style="font-size:0.85rem; color: var(--text-sub);">Senyawa Dominan</span>
+                    <div class="stat-number" style="color: var(--primary);">CO₂, CH₄, VOC</div>
+                    <span style="font-size:0.75rem; color: var(--text-sub);">Gas Rumah Kaca & Toksik</span>
+                </div>
+            </div>
+
+            <span class="edu-badge badge-guru">Diskusi Analisis Data Grafik</span>
+            <h3 style="margin-bottom: 10px;">Estimasi Emisi Karbon Karhutla Indonesia (Megaton CO₂e)</h3>
+            <div class="chart-container">
+                <canvas id="emissionsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- SECTION 4: DAMPAK SAAT INI DAN 10 TAHUN MENDATANG -->
+        <div class="section-header">
+            <i class="fa-solid fa-earth-americas"></i>
+            <h2>Dampak Ekologis Saat Ini vs 10 Tahun Mendatang</h2>
+        </div>
+
+        <div class="grid">
+            <div class="card" style="border-top: 4px solid var(--warning);">
+                <h3 style="color: var(--warning);"><i class="fa-solid fa-triangle-exclamation"></i> Dampak Saat Ini</h3>
+                <ul style="margin-left: 20px; margin-top: 10px; color: var(--text-sub);">
+                    <li><strong>Polusi ISPA:</strong> Pelepasan <span class="chem-formula">PAH (Polycyclic Aromatic Hydrocarbons)</span> memicu krisis pernapasan masif.</li>
+                    <li><strong>Penyumbang Efek Rumah Kaca:</strong> Metana (<span class="chem-formula">CH₄</span>) yang terlepas memiliki potensi pemanasan 28x lebih kuat dari CO₂.</li>
+                    <li><strong>Hilangnya Keanekaragaman Hayati:</strong> Rusaknya flora dan fauna endemik di Kalimantan & Sumatra.</li>
+                </ul>
+            </div>
+
+            <div class="card" style="border-top: 4px solid var(--danger);">
+                <h3 style="color: var(--danger);"><i class="fa-solid fa-clock-rotate-left"></i> Proyeksi 10 Tahun (2026-2036)</h3>
+                <ul style="margin-left: 20px; margin-top: 10px; color: var(--text-sub);">
+                    <li><strong>Krisis Carbon Sink:</strong> Lahan gambut berubah fungsi dari penyerap karbon menjadi sumber emisi karbon aktif permanen.</li>
+                    <li><strong>Cuaca Panas Ekstrem:</strong> Siklus El Nino memicu kenaikan suhu lokal hingga +1.5°C di wilayah terdampak.</li>
+                    <li><strong>Ancaman Ekonomi & Pendidikan:</strong> Kerugian triliunan rupiah dan penutupan sekolah rutin akibat krisis asap tahunan.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Platform Edukasi Kimia Lingkungan — Didesain untuk Pembelajaran SMA & Guru Kimia Indonesia</p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // KALKULATOR STOIKIOMETRI
+        function calculateStoichiometry() {
+            const n = parseInt(document.getElementById('carbon').value);
+            const m = parseInt(document.getElementById('hydrogen').value);
+
+            if (isNaN(n) || isNaN(m) || n <= 0 || m <= 0) {
+                document.getElementById('reactionResult').innerText = "Masukkan angka positif untuk C dan H.";
+                return;
+            }
+
+            let o2Coeff = n + (m / 4);
+            let co2Coeff = n;
+            let h2oCoeff = m / 2;
+            let hcCoeff = 1;
+
+            if (o2Coeff % 1 !== 0 || h2oCoeff % 1 !== 0) {
+                hcCoeff *= 2;
+                o2Coeff *= 2;
+                co2Coeff *= 2;
+                h2oCoeff *= 2;
+            }
+
+            const formatCoeff = (num) => num > 1 ? num : '';
+            let hcFormula = `C${toSubscript(n)}H${toSubscript(m)}`;
+            let reactionString = `${formatCoeff(hcCoeff)}${hcFormula} + ${formatCoeff(o2Coeff)}O₂ → ${formatCoeff(co2Coeff)}CO₂ + ${formatCoeff(h2oCoeff)}H₂O`;
+
+            document.getElementById('reactionResult').innerText = reactionString;
+            document.getElementById('stoichNotes').innerText = `💡 Setiap ${hcCoeff} molekul ${hcFormula} membutuhkan ${o2Coeff} molekul O₂ dan menghasilkan ${co2Coeff} molekul CO₂ serta ${h2oCoeff} molekul H₂O.`;
+        }
+
+        function toSubscript(num) {
+            const subs = {'0':'₀','1':'₁','2':'₂','3':'₃','4':'₄','5':'₅','6':'₆','7':'₇','8':'₈','9':'₉'};
+            return num.toString().split('').map(c => subs[c] || c).join('');
+        }
+
+        // CHART.JS DATA EMISI
+        const ctx = document.getElementById('emissionsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['2015 (Krisis)', '2017', '2019 (Krisis)', '2021', '2023', '2025 (Estimasi)'],
+                datasets: [{
+                    label: 'Emisi Karbon (Megaton CO₂e)',
+                    data: [1620, 240, 708, 210, 480, 520],
+                    backgroundColor: [
+                        '#ef4444',
+                        '#10b981',
+                        '#f59e0b',
+                        '#10b981',
+                        '#f59e0b',
+                        '#ef4444'
+                    ],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#94a3b8' } }
+                },
+                scales: {
+                    y: {
+                        ticks: { color: '#94a3b8' },
+                        grid: { color: '#334155' }
+                    },
+                    x: {
+                        ticks: { color: '#94a3b8' },
+                        grid: { color: '#334155' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
